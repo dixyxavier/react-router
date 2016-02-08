@@ -1,31 +1,26 @@
 /**
  * Created by dixy on 4/2/16.
  */
-import React from 'react';
-import Router from 'react-router';
-import { DefaultRoute, Link, Route, RouteHandler } from 'react-router';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import { Link, Route, Router } from 'react-router';
 
 import LoginHandler from './components/login.jsx';
 
 let App = React.createClass({
-
     render() {
-        return (<div className="nav">
-            <Link to="app">Home</Link>
+        return <div className="nav">
+            <Link to="app">Home</Link><br/>
             <Link to="login">Login</Link>
-
-            {/* this is the important part */}
-            <RouteHandler/>
-        </div>);
+        </div>
     }
 });
 
-let routes = (
-    <Route name="app" path="/" handler={App}>
-        <Route name="login" path="/login" handler={LoginHandler}/>
-    </Route>
+ReactDOM.render(
+    <Router>
+        <Route name="app" path="/" component={App}/>
+        <Route name="app" path="/app" component={App}/>
+        <Route name="login" path="/login" component={LoginHandler}/>
+    </Router>,
+    document.getElementById('react')
 );
-
-Router.run(routes, function (Handler) {
-    React.render(<Handler/>, document.body);
-});
